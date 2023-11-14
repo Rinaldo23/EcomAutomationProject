@@ -12,8 +12,6 @@ public interface ActionInterface {
 	// Added all user actions abstract methods to achieve Abstraction
 	public boolean isElementPresent(WebDriver driver, By locator);
 
-	public void handleAds();
-
 	public void scrollByVisibilityOfElement(WebDriver driver, WebElement ele);
 
 	public void click(WebDriver ldriver, WebElement ele);
@@ -94,5 +92,7 @@ public interface ActionInterface {
 
 	public String screenShot(WebDriver driver, String filename);
 //		public String getCurrentTime();
+
+	int generateRandomNumber(int min, int max);
 
 }

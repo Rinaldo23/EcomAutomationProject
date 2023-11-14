@@ -38,7 +38,7 @@ public class ProductsPage extends BaseClass {
 	public ProductDetailsPage viewProduct() {
 		NavigateToTopSection();
 		List<WebElement> products = action.findElements(driver, ".product-item-info .name");
-		int randomNumber = generateRandomNumber(1, products.size()); //
+		int randomNumber = action.generateRandomNumber(1, products.size()); //
 		while (action.getCurrentURL(driver).contains("product_details")) {
 			for (int i = 0; i <= products.size(); i++) {
 				if (i == randomNumber) {
@@ -49,14 +49,4 @@ public class ProductsPage extends BaseClass {
 		}
 		return new ProductDetailsPage();
 	}
-
-	public int generateRandomNumber(int min, int max) {
-		if (min > max) {
-			throw new IllegalArgumentException("Max must be greater than Min");
-		}
-
-		Random random = new Random();
-		return random.nextInt((max - min) + 1) + min;
-	}
-
 }

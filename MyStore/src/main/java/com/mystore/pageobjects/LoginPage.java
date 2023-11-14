@@ -7,51 +7,39 @@ import org.openqa.selenium.support.PageFactory;
 import com.mystore.actiondriver.Action;
 import com.mystore.base.BaseClass;
 
-public class LoginPage extends BaseClass{
-	
+public class LoginPage extends BaseClass {
+
 	public LoginPage() {
 		PageFactory.initElements(driver, this);
 	}
-	
+
 	Action action = new Action();
-	
-	@FindBy(xpath="//input[@data-qa='login-email']")
-	private WebElement loginEmail;
-	
-	@FindBy(css="input[placeholder='Password']")
-	private WebElement loginPassword;
-	
-	@FindBy(xpath="//button[normalize-space()='Login']")
+
+	@FindBy(xpath = "//input[@id='email']")
+	private WebElement emailTextbox;
+
+	@FindBy(xpath = "//fieldset[@class='fieldset login']//input[@id='pass']")
+	private WebElement passwordTextBox;
+
+	@FindBy(xpath = "//fieldset[@class='fieldset login']//button[@id='send2']")
 	private WebElement loginBtn;
-	
-	@FindBy(xpath="//h2[normalize-space()='Login to your account']")
-	private WebElement loginTextValidation;
-	
-	@FindBy(css="input[placeholder='Name']")
-	private WebElement signupUserName;
-	
-	@FindBy(xpath="//input[@data-qa='signup-email']")
-	private WebElement signupEmail;
-	
-	@FindBy(css="button[data-qa='signup-button']")
-	private WebElement signupBtn;
-	
-	
-	public HomePage Login(String email, String password) throws InterruptedException {
-		action.scrollByVisibilityOfElement(driver, loginEmail);
-		Thread.sleep(3000);
-		action.type(loginEmail, email);
-		action.type(loginPassword, password);
+
+	@FindBy(xpath = "//a[@class='action remind']//span[contains(text(),'Forgot Your Password?')]")
+	private WebElement forgetPasswordLink;
+
+	@FindBy(css = "//a[@class='action create primary']//span[contains(text(),'Create an Account')]")
+	private WebElement createAccBtn;
+
+	public IndexPage Login(String email, String password) {
+		action.type(emailTextbox, email);
+		action.type(passwordTextBox, password);
 		action.click(driver, loginBtn);
-		HomePage homePage = new HomePage();
-		return homePage;
+		return new IndexPage();
 	}
-	
-	public void RegisterUser(String name, String email) throws InterruptedException {
-		action.scrollByVisibilityOfElement(driver, signupEmail);
-		Thread.sleep(3000);
-		action.type(signupUserName, name);
-		action.type(signupEmail, email);
-		action.click(driver, signupBtn);
+
+	public SignUpPage RegisterUser(String name, String email) throws InterruptedException {
+		action.click(driver, createAccBtn);
+		return new SignUpPage();
 	}
+
 }

@@ -7,9 +7,9 @@ import org.openqa.selenium.support.PageFactory;
 import com.mystore.actiondriver.Action;
 import com.mystore.base.BaseClass;
 
-public class AccountCreationPage extends BaseClass {
+public class MyAccountPage extends BaseClass {
 
-	public AccountCreationPage() {
+	public MyAccountPage() {
 		PageFactory.initElements(driver, this);
 	}
 
@@ -23,7 +23,6 @@ public class AccountCreationPage extends BaseClass {
 	@FindBy(xpath = "//a[normalize-space()='Continue']")
 	private WebElement continueBtn;
 
-	
 	// Methods
 
 	public boolean verifyAccountCreation() {
@@ -32,13 +31,13 @@ public class AccountCreationPage extends BaseClass {
 
 	public HomePage ClickOnContinue() {
 		boolean res = verifyAccountCreation();
-		
-		if(res) {
+
+		if (res) {
 			action.click(driver, continueBtn);
-		}else {
+		} else {
 			// TODO
 		}
-		
+
 		return new HomePage();
 	}
 

@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -30,37 +31,14 @@ import com.mystore.base.BaseClass;
 public class Action extends BaseClass implements ActionInterface {
 
 	@Override
-	public void handleAds() {
-		if (getCurrentURL(driver).contains("google_vignette")) {
-			if (isElementPresent(driver, By.id("dismiss-button"))) {
-				driver.findElement(By.id("dismiss-button")).click();
-			}
+	public int generateRandomNumber(int min, int max) {
+		if (min > max) {
+			throw new IllegalArgumentException("Max must be greater than Min");
 		}
 
-//		// Wait for up to 60 seconds for the dismiss button to be present
-//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//
-//		// Check if the dismiss button is present
-//		
-//         
-//		if (isElementPresent(driver, By.id("dismiss-button"))) {
-//			// Wait until the dismiss button is clickable
-//			WebElement dismissButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("dismiss-button")));
-//
-//			// Click the dismiss button
-//			dismissButton.click();
-//
-//			System.out.println("Dismissed the ad.");
-//		} else {
-//			System.out.println("No ad to dismiss.");
-//		}
+		Random random = new Random();
+		return random.nextInt((max - min) + 1) + min;
 	}
-
-//	public void handleAds() {
-//		if(isElementPresent(driver, By.id("dismiss-button"))) {
-//			driver.findElement(By.id("dismiss-button")).click();	
-//		}
-//	}
 
 	// Method to check if an element is present on the page
 	@Override

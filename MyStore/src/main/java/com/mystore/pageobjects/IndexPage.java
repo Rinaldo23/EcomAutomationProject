@@ -7,46 +7,55 @@ import org.openqa.selenium.support.PageFactory;
 import com.mystore.actiondriver.Action;
 import com.mystore.base.BaseClass;
 
+//header
 public class IndexPage extends BaseClass {
-	
-	public IndexPage(){
+
+	public IndexPage() {
 		PageFactory.initElements(driver, this);
 	}
-	
+
 	Action action = new Action();
-	
+
 	// Locators
-	@FindBy(xpath="//a[normalize-space()='Home']")
-	private WebElement homeBtn;
-	
-	@FindBy(xpath="//a[@href='/products']")
-	private WebElement productsBtn;
-	
-	@FindBy(xpath="//a[normalize-space()='Cart']//i[@class='fa fa-shopping-cart']")
+
+	@FindBy(xpath = "//a[@aria-label='store logo']//img")
+	private WebElement logoImg;
+
+	@FindBy(xpath = "//input[@id='search']")
+	private WebElement searchTextBox;
+
+	@FindBy(xpath = "//button[@title='Search']")
+	private WebElement searchBtn;
+
+	@FindBy(xpath = "//a[@class='action showcart']")
 	private WebElement cartBtn;
-	
-	@FindBy(css="//a[normalize-space()='Signup / Login']")
-	private WebElement signupBtn;
-	
-	
-	//Methods
-	public LoginPage NavigateToLoginPage() {
-		action.click(driver, signupBtn);
-		return new LoginPage();
-	}
-	
-	public CartPage NavigateToCartPage() {
-		action.click(driver, cartBtn);
-		return new CartPage();
-	}
-	
-	public ProductsPage NavigateToProductsPage() {
-		action.click(driver, productsBtn);
+
+	@FindBy(xpath = "//span[normalize-space()='Women']")
+	private WebElement womenBtn;
+
+	@FindBy(xpath = "//span[normalize-space()='Men']")
+	private WebElement menBtn;
+
+	// Methods
+	public ProductsPage NavigateToMensPage() {
+		action.click(driver, menBtn);
 		return new ProductsPage();
 	}
-	
-	public IndexPage NavigateToHomePage() {
-		action.click(driver, homeBtn);
-		return new IndexPage();
+
+	public ProductsPage NavigateToWomensPage() {
+		action.click(driver, womenBtn);
+		return new ProductsPage();
 	}
+
+	public HomePage NavigateToHomePage() {
+		action.click(driver, logoImg);
+		return new HomePage();
+	}
+
+	public ProductsPage SearchProducts(String product) {
+		action.type(searchTextBox, product);
+		action.click(driver, searchBtn);
+		return new ProductsPage();
+	}
+
 }

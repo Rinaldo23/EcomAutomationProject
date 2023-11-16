@@ -35,6 +35,19 @@ public class IndexPage extends BaseClass {
 
 	@FindBy(xpath = "//span[normalize-space()='Men']")
 	private WebElement menBtn;
+	
+	@FindBy(xpath = "//div[@class='panel header']//a[contains(text(),'Sign In')]")
+	private WebElement signInBtn;
+	
+	@FindBy(xpath = "//div[@class='panel header']//a[normalize-space()='Create an Account']")
+	private WebElement signUpBtn;
+	
+	@FindBy(xpath = "//div[@class='panel header']//button[@type='button']")
+	private WebElement signOutOptionsDD;
+	
+	@FindBy(xpath = "//div[@aria-hidden='false']//a[normalize-space()='Sign Out']")
+	private WebElement signOutBtn;
+	
 
 	// Methods
 	public ProductsPage NavigateToMensPage() {
@@ -49,6 +62,22 @@ public class IndexPage extends BaseClass {
 
 	public HomePage NavigateToHomePage() {
 		action.click(driver, logoImg);
+		return new HomePage();
+	}
+	
+	public LoginPage NavigateToSignInPage() {
+		action.click(driver, signInBtn);
+		return new LoginPage();
+	}
+	
+	public SignUpPage NavigateToSignUpPage() {
+		action.click(driver, signUpBtn);
+		return new SignUpPage();
+	}
+	
+	public HomePage LogOut() {
+		action.click(driver, signOutOptionsDD);
+		action.click(driver, signOutBtn);
 		return new HomePage();
 	}
 

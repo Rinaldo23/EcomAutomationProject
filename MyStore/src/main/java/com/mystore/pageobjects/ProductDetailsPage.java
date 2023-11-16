@@ -45,6 +45,7 @@ public class ProductDetailsPage extends BaseClass {
 		SelectColor();
 		AddQty();
 		AddToCart();
+		NavigateToShoppingCart();
 	}
 
 	public void SelectSize() {

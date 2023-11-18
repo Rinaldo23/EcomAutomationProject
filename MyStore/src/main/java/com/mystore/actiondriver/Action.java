@@ -1,14 +1,17 @@
 package com.mystore.actiondriver;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
@@ -27,40 +30,36 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.mystore.actioninterface.ActionInterface;
 import com.mystore.base.BaseClass;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClients;
+
 public class Action extends BaseClass implements ActionInterface {
 
 	@Override
-	public void handleAds() {
-		if (getCurrentURL(driver).contains("google_vignette")) {
-			if (isElementPresent(driver, By.id("dismiss-button"))) {
-				driver.findElement(By.id("dismiss-button")).click();
-			}
-		}
+	public  int getHttpResponseCode(String urlString) throws IOException {
+		HttpClient httpClient = HttpClients.createDefault();
+		HttpGet httpGet = new HttpGet(urlString);
 
-//		// Wait for up to 60 seconds for the dismiss button to be present
-//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//
-//		// Check if the dismiss button is present
-//		
-//         
-//		if (isElementPresent(driver, By.id("dismiss-button"))) {
-//			// Wait until the dismiss button is clickable
-//			WebElement dismissButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("dismiss-button")));
-//
-//			// Click the dismiss button
-//			dismissButton.click();
-//
-//			System.out.println("Dismissed the ad.");
-//		} else {
-//			System.out.println("No ad to dismiss.");
-//		}
+		// Get the HTTP response
+		HttpResponse response = httpClient.execute(httpGet);
+
+		// Get the HTTP status code
+		int statusCode = response.getStatusLine().getStatusCode();
+
+		return statusCode;
 	}
 
-//	public void handleAds() {
-//		if(isElementPresent(driver, By.id("dismiss-button"))) {
-//			driver.findElement(By.id("dismiss-button")).click();	
-//		}
-//	}
+	@Override
+	public int generateRandomNumber(int min, int max) {
+		if (min > max) {
+			throw new IllegalArgumentException("Max must be greater than Min");
+		}
+
+		Random random = new Random();
+		return random.nextInt((max - min) + 1) + min;
+	}
 
 	// Method to check if an element is present on the page
 	@Override
@@ -756,15 +755,15 @@ public class Action extends BaseClass implements ActionInterface {
 	}
 
 	@Override
-	public void implicitWait(WebDriver driver, int timeOut) {
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	public void implicitWait(WebDriver driver, long timeOut) {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeOut));
 	}
 
-//	@Override
-//	public void explicitWait(WebDriver driver, WebElement element, Duration timeOut ) {
-//		WebDriverWait wait = new WebDriverWait(driver,timeOut);
-//		wait.until(ExpectedConditions.visibilityOf(element));
-//	}
+	@Override
+	public void explicitWait(WebDriver driver, WebElement element, long timeOut ) {
+		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(timeOut));
+		wait.until(ExpectedConditions.visibilityOf(element));
+	}
 
 	@Override
 	public void pageLoadTimeOut(WebDriver driver, int timeOut) {

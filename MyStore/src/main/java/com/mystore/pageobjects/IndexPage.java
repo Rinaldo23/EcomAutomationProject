@@ -35,6 +35,24 @@ public class IndexPage extends BaseClass {
 
 	@FindBy(xpath = "//span[normalize-space()='Men']")
 	private WebElement menBtn;
+	
+	@FindBy(xpath = "//div[@class='panel header']//a[contains(text(),'Sign In')]")
+	private WebElement signInBtn;
+	
+	@FindBy(xpath = "//div[@class='panel header']//a[normalize-space()='Create an Account']")
+	private WebElement signUpBtn;
+	
+	@FindBy(xpath = "//div[@class='panel header']//button[@type='button']")
+	private WebElement signOutOptionsDD;
+	
+	@FindBy(xpath = "//div[@aria-hidden='false']//a[normalize-space()='Sign Out']")
+	private WebElement signOutBtn;
+	
+	
+	@FindBy(css = "div[class='panel header'] span[class='logged-in']")
+	public WebElement verifyLoginText;
+			
+			
 
 	// Methods
 	public ProductsPage NavigateToMensPage() {
@@ -51,11 +69,36 @@ public class IndexPage extends BaseClass {
 		action.click(driver, logoImg);
 		return new HomePage();
 	}
+	
+	public LoginPage NavigateToSignInPage() {
+		action.click(driver, signInBtn);
+		return new LoginPage();
+	}
+	
+	public SignUpPage NavigateToSignUpPage() {
+		action.click(driver, signUpBtn);
+		return new SignUpPage();
+	}
+	
+	public HomePage LogOut() {
+		action.click(driver, signOutOptionsDD);
+		action.click(driver, signOutBtn);
+		return new HomePage();
+	}
 
 	public ProductsPage SearchProducts(String product) {
 		action.type(searchTextBox, product);
 		action.click(driver, searchBtn);
 		return new ProductsPage();
+	}
+	
+	public boolean VerifyLogin() {
+		
+		if(!action.isDisplayed(driver, verifyLoginText)) {
+			driver.navigate().refresh();
+			action.explicitWait(driver, verifyLoginText, 10);
+		}
+		return verifyLoginText.getText().contains("Welcome");	
 	}
 
 }

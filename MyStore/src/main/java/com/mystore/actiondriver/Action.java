@@ -1,6 +1,7 @@
 package com.mystore.actiondriver;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -10,6 +11,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
@@ -28,7 +30,26 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.mystore.actioninterface.ActionInterface;
 import com.mystore.base.BaseClass;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClients;
+
 public class Action extends BaseClass implements ActionInterface {
+
+	@Override
+	public  int getHttpResponseCode(String urlString) throws IOException {
+		HttpClient httpClient = HttpClients.createDefault();
+		HttpGet httpGet = new HttpGet(urlString);
+
+		// Get the HTTP response
+		HttpResponse response = httpClient.execute(httpGet);
+
+		// Get the HTTP status code
+		int statusCode = response.getStatusLine().getStatusCode();
+
+		return statusCode;
+	}
 
 	@Override
 	public int generateRandomNumber(int min, int max) {
@@ -734,15 +755,15 @@ public class Action extends BaseClass implements ActionInterface {
 	}
 
 	@Override
-	public void implicitWait(WebDriver driver, int timeOut) {
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	public void implicitWait(WebDriver driver, long timeOut) {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeOut));
 	}
 
-//	@Override
-//	public void explicitWait(WebDriver driver, WebElement element, Duration timeOut ) {
-//		WebDriverWait wait = new WebDriverWait(driver,timeOut);
-//		wait.until(ExpectedConditions.visibilityOf(element));
-//	}
+	@Override
+	public void explicitWait(WebDriver driver, WebElement element, long timeOut ) {
+		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(timeOut));
+		wait.until(ExpectedConditions.visibilityOf(element));
+	}
 
 	@Override
 	public void pageLoadTimeOut(WebDriver driver, int timeOut) {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite parallel="methods" name="LoginTest">
+  <test thread-count="5" parallel="methods" name="LoginTestCases">
+    <classes>
+      <class name="com.mystore.testcases.LoginTest"/>
+  
+    </classes>
+  </test> <!-- LoginTestCases -->
+</suite> <!-- LoginTest -->

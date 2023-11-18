@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+
+
 public interface ActionInterface {
 
 	// Added all user actions abstract methods to achieve Abstraction
@@ -85,14 +87,16 @@ public interface ActionInterface {
 
 	public void fluentWait(WebDriver driver, WebElement element, int timeOut);
 
-	public void implicitWait(WebDriver driver, int timeOut);
+	public void implicitWait(WebDriver driver, long timeOut);
 
-//		public void explicitWait(WebDriver driver, WebElement element, int timeOut);
+    public void explicitWait(WebDriver driver, WebElement element, long timeOut);
 	public void pageLoadTimeOut(WebDriver driver, int timeOut);
 
 	public String screenShot(WebDriver driver, String filename);
 //		public String getCurrentTime();
 
 	int generateRandomNumber(int min, int max);
+
+	public int getHttpResponseCode(String urlString) throws java.io.IOException ;
 
 }

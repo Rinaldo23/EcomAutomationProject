@@ -11,6 +11,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 
 import com.mystore.actiondriver.Action;
 
@@ -21,12 +26,14 @@ public class BaseClass {
 	public static Properties prop;
 	public static WebDriver driver;
 
+	@BeforeSuite
 	public void loadConfig() {
 		try {
 			prop = new Properties();
 			FileInputStream ip = new FileInputStream(
 					System.getProperty("user.dir") + "\\Configuration\\config.properties");
 			prop.load(ip);
+			System.out.println("Ip Loaded ");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -36,8 +43,6 @@ public class BaseClass {
 	}
 
 	public void launchApp() {
-		loadConfig();
-
 		// Create ChromeOptions object
 		ChromeOptions options = new ChromeOptions();
 
@@ -68,6 +73,7 @@ public class BaseClass {
 
 	}
 
+	@AfterSuite
 	public void close() {
 		driver.quit();
 	}

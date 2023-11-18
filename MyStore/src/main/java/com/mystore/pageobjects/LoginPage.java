@@ -29,17 +29,27 @@ public class LoginPage extends BaseClass {
 
 	@FindBy(css = "//a[@class='action create primary']//span[contains(text(),'Create an Account')]")
 	private WebElement createAccBtn;
+	
+	@FindBy(css = "div[data-bind='html: $parent.prepareMessageForHtml(message.text)']")
+	private WebElement verifyInvalidLoginText;
 
 	public IndexPage Login(String email, String password) {
 		action.type(emailTextbox, email);
 		action.type(passwordTextBox, password);
 		action.click(driver, loginBtn);
+		action.implicitWait(driver, 10);
 		return new IndexPage();
 	}
 
+	
 	public SignUpPage RegisterUser(String name, String email) throws InterruptedException {
 		action.click(driver, createAccBtn);
 		return new SignUpPage();
+	}
+	
+	public boolean verifyInvalidLogin() {
+		action.explicitWait(driver, verifyInvalidLoginText, 10);
+		return verifyInvalidLoginText.getText().contains("account sign-in was incorrect");
 	}
 
 }

@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -52,7 +53,6 @@ public class BaseClass {
 
 		WebDriverManager.chromedriver().setup();
 		String browserName = prop.getProperty("browser");
-		System.out.println(browserName);
 
 		if (browserName.contains("Chrome")) {
 			driver = new ChromeDriver();
@@ -73,7 +73,7 @@ public class BaseClass {
 
 	}
 
-	@AfterSuite
+	@AfterMethod
 	public void close() {
 		driver.quit();
 	}

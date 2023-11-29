@@ -6,8 +6,7 @@
       <class name="com.mystore.testcases.LoginTest">
         <methods>
           <include name="loadConfig"/>
-          <include name="loginTestWithValidCreds"/>
-          <include name="close"/>
+          <include name="loginTestWithValidCreds" invocation-numbers="0"/>
           <include name="launchAppTest"/>
         </methods>
       </class> <!-- com.mystore.testcases.LoginTest -->

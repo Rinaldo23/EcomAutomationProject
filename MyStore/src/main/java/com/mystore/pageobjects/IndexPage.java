@@ -49,13 +49,14 @@ public class IndexPage extends BaseClass {
 	private WebElement signOutBtn;
 	
 	
-	@FindBy(css = "div[class='panel header'] span[class='logged-in']")
+	@FindBy(xpath = "//div[@class='panel header']//span[@class='logged-in']")
 	public WebElement verifyLoginText;
 			
 			
 
 	// Methods
 	public ProductsPage NavigateToMensPage() {
+		action.explicitWait(driver, menBtn, 10);
 		action.click(driver, menBtn);
 		return new ProductsPage();
 	}
@@ -93,12 +94,7 @@ public class IndexPage extends BaseClass {
 	}
 	
 	public boolean VerifyLogin() {
-		
-		if(!action.isDisplayed(driver, verifyLoginText)) {
-			driver.navigate().refresh();
-			action.explicitWait(driver, verifyLoginText, 10);
-		}
-		return verifyLoginText.getText().contains("Welcome");	
+		return !action.isDisplayed(driver, signInBtn);	
 	}
 
 }

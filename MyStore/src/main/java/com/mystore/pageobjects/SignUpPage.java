@@ -33,6 +33,9 @@ public class SignUpPage extends BaseClass {
 
 	@FindBy(xpath = "//button[@title='Create an Account']//span[contains(text(),'Create an Account')]")
 	private WebElement signInButton;
+	
+	@FindBy(xpath = "//button[@title='Create an Account']//span[contains(text(),'Create an Account')]")
+	private WebElement signupTextMsg;
 
 	// Methods
 
@@ -47,8 +50,8 @@ public class SignUpPage extends BaseClass {
 		action.type(confirmPasswordTextBox, confirmPassword);
 	}
 	
-	
 	public MyAccountPage createNewCustomerAccount(String firstName, String lastName,String email, String password, String confirmPassword) {
+		action.implicitWait(driver, 10);
 		EnterPersonalInfo(firstName, lastName);
 		EnterSignInInfo(email, password, confirmPassword);
 		action.click(driver, signInButton);

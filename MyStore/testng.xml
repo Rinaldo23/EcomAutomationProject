@@ -3,12 +3,14 @@
 <suite name="Suite">
   <test name="Test">
     <classes>
-      <!-- <class name="com.mystore.testcases.LoginTest"/> -->
-      <class name="com.mystore.testcases.RegisterTest">
+      <class name="com.mystore.testcases.LoginTest"/> 
+       <!-- <class name="com.mystore.testcases.RegisterTest">
 		  <methods>
 			  <include name="RegisterWithExistingUser"></include>
 		  </methods>
-	  </class>
+	  </class>-->
+	  
+	  <!-- <class name="com.mystore.testcases.ProductsTest"></class> -->
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

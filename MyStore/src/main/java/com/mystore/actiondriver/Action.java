@@ -115,6 +115,11 @@ public class Action extends BaseClass implements ActionInterface {
 	public List<WebElement> findElements(WebDriver driver, String ele) {
 		return driver.findElements(By.cssSelector(ele));
 	}
+	
+	@Override
+	public List<WebElement> findElementsByXpath(WebDriver driver, String ele) {
+		return driver.findElements(By.xpath(ele));
+	}
 
 	@Override
 	public boolean isDisplayed(WebDriver driver, WebElement ele) {
@@ -181,7 +186,7 @@ public class Action extends BaseClass implements ActionInterface {
 			flag = false;
 		} finally {
 			if (flag) {
-				System.out.println("Successfully entered value");
+				//System.out.println("Successfully entered value");
 			} else {
 				System.out.println("Unable to enter value");
 			}

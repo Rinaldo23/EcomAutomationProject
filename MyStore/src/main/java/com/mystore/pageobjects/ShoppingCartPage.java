@@ -48,6 +48,7 @@ public class ShoppingCartPage extends BaseClass {
 	//Methods
 	
 	public CheckOutPage ProceedToCheckout() {
+		action.explicitWait(driver, proceedToCheckOut, 10);
 		action.click(driver, proceedToCheckOut);
 		return new CheckOutPage();
 	}

@@ -40,21 +40,23 @@ public class ProductDetailsPage extends BaseClass {
 	private WebElement shoppingCartBtn;
 
 	// Methods
-	public void AddProductToCart() {
+	public ShoppingCartPage AddProductToCart() throws InterruptedException {
 		SelectSize();
 		SelectColor();
 		AddQty();
 		AddToCart();
-		NavigateToShoppingCart();
+		return NavigateToShoppingCart();
+		
 	}
 
-	public void SelectSize() {
-		int randomNumber = action.generateRandomNumber(1, sizeList.size());
+	public void SelectSize() throws InterruptedException {
+		Thread.sleep(5000);
+		int randomNumber = action.generateRandomNumber(1, sizeList.size()-1);
 		action.click(driver, sizeList.get(randomNumber));
 	}
 
 	public void SelectColor() {
-		int randomNumber = action.generateRandomNumber(1, colorList.size());
+		int randomNumber = action.generateRandomNumber(1, colorList.size()-1);
 		action.click(driver, colorList.get(randomNumber));
 	}
 

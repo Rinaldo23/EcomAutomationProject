@@ -99,4 +99,6 @@ public interface ActionInterface {
 
 	public int getHttpResponseCode(String urlString) throws java.io.IOException ;
 
+	List<WebElement> findElementsByXpath(WebDriver driver, String ele);
+
 }

@@ -27,8 +27,12 @@ public class ProductsPage extends BaseClass {
 	private WebElement bottomBtn;
 
 	// Methods
+	//#narrow-by-list2 .items li:nth-child(1)
 	public void NavigateToTopSection() {
-		action.click(driver, topsBtn);
+		action.explicitWait(driver, topsBtn, 10);
+		if(action.isDisplayed(driver, topsBtn)) {
+			action.click(driver, topsBtn);
+		}
 	}
 
 	public void NavigateToBottomSection() {
@@ -37,16 +41,17 @@ public class ProductsPage extends BaseClass {
 
 	public ProductDetailsPage viewProduct() {
 		NavigateToTopSection();
-		List<WebElement> products = action.findElements(driver, ".product-item-info .name");
+		List<WebElement> products = action.findElementsByXpath(driver, "//li[@class='item product product-item']");
+		System.out.println("Products size  : "+products.size());
 		int randomNumber = action.generateRandomNumber(1, products.size()); //
-		while (action.getCurrentURL(driver).contains("product_details")) {
+		//while (action.getCurrentURL(driver).contains("product_details")) {
 			for (int i = 0; i <= products.size(); i++) {
 				if (i == randomNumber) {
 					action.scrollByVisibilityOfElement(driver, products.get(i));
 					action.click(driver, products.get(i));
 				}
 			}
-		}
+		//}
 		return new ProductDetailsPage();
 	}
 }

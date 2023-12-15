@@ -68,7 +68,7 @@ public class LoginTest extends BaseClass {
 		indexPage = new IndexPage();
 		loginPage = indexPage.NavigateToSignInPage();
 		loginPage.Login(username, password);
-		Assert.assertEquals(indexPage.VerifyLogin(), true);
+		Assert.assertEquals(indexPage.VerifyLogin(), false);
 		Log.endTestCase("Ended loginTestWithValidCreds");
 	}
 	

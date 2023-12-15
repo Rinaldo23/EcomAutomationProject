@@ -29,13 +29,16 @@ public class SuccessPage extends BaseClass{
 	
 	//Methods
 	
-	public void VerifyPurchaseMessage() {
+	public String VerifyPurchaseMessage() {
+		action.explicitWait(driver, successMessage, 10);
 		String actualMsg = "Thank you for your purchase!";
-		
+		String orderNum="";
 		if(successMessage.getText().contains(actualMsg)){
-			String orderNum = orderNumber.getText();
+			orderNum = orderNumber.getText();
 			action.click(driver, continueShopping);
 		};
+		
+		return orderNum;
 	}
 	
 }

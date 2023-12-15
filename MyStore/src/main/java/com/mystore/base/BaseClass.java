@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -29,6 +30,7 @@ public class BaseClass {
 
 	@BeforeSuite
 	public void loadConfig() {
+		DOMConfigurator.configure("log4j.xml");
 		try {
 			prop = new Properties();
 			FileInputStream ip = new FileInputStream(
@@ -73,7 +75,7 @@ public class BaseClass {
 
 	}
 
-	@AfterMethod
+//	@AfterMethod
 	public void close() {
 		driver.quit();
 	}

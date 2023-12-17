@@ -2,6 +2,7 @@ package com.mystore.testcases;
 
 import java.io.IOException;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -42,6 +43,7 @@ import com.mystore.pageobjects.SignUpPage;
 //8. Verify error 'Email Address already exist!' is visible
 
 public class RegisterTest extends BaseClass {
+	WebDriver driver = getDriver();
 
 	private IndexPage indexPage;
 	private SignUpPage signupPage;

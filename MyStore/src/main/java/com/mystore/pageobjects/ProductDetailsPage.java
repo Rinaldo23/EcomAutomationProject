@@ -2,6 +2,7 @@ package com.mystore.pageobjects;
 
 import java.util.List;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -10,7 +11,8 @@ import com.mystore.actiondriver.Action;
 import com.mystore.base.BaseClass;
 
 public class ProductDetailsPage extends BaseClass {
-
+	
+	WebDriver driver = getDriver();
 	public ProductDetailsPage() {
 		PageFactory.initElements(driver, this);
 	}

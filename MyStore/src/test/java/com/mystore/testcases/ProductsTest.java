@@ -2,6 +2,7 @@ package com.mystore.testcases;
 
 import java.io.IOException;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -27,6 +28,8 @@ import com.mystore.pageobjects.SuccessPage;
 //8. Verify all the products related to search are visible
 
 public class ProductsTest extends BaseClass {
+	
+	WebDriver driver = getDriver();
 
 	private IndexPage indexPage;
 	private LoginPage loginPage;

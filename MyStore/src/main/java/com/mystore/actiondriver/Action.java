@@ -36,7 +36,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 
 public class Action extends BaseClass implements ActionInterface {
-
+	
 	@Override
 	public  int getHttpResponseCode(String urlString) throws IOException {
 		HttpClient httpClient = HttpClients.createDefault();
@@ -721,7 +721,7 @@ public class Action extends BaseClass implements ActionInterface {
 	public String getCurrentURL(WebDriver driver) {
 		boolean flag = false;
 
-		String text = driver.getCurrentUrl();
+		String text = getDriver().getCurrentUrl();
 		if (flag) {
 			System.out.println("Current URL is: \"" + text + "\"");
 		}
@@ -761,7 +761,7 @@ public class Action extends BaseClass implements ActionInterface {
 
 	@Override
 	public void implicitWait(WebDriver driver, long timeOut) {
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(timeOut));
+		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(timeOut));
 	}
 
 	@Override

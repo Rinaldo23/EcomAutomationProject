@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.core.util.internal.HttpInputStreamUtil.Result;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -22,7 +21,8 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.mystore.base.BaseClass;
 
 public class EventListner extends BaseClass implements ITestListener {
-
+	
+	WebDriver driver = getDriver();
 	ExtentSparkReporter htmlReporter;
 	ExtentReports reports;
 	ExtentTest test;
@@ -38,7 +38,7 @@ public class EventListner extends BaseClass implements ITestListener {
 
 	}
 
-	public static void captureScreenshot(WebDriver driver, String screenshotName) {
+	public static void captureScreenshot(WebDriver driver, String screenshotName) throws IOException {
 		// Convert WebDriver object to TakesScreenshot
 		TakesScreenshot ts = (TakesScreenshot) driver;
 
@@ -49,12 +49,8 @@ public class EventListner extends BaseClass implements ITestListener {
 		String destination = System.getProperty("user.dir") + "\\ScreenShot\\" + screenshotName + ".png";
 		File target = new File(destination);
 
-		try {
-			// Copy file to the destination
-			FileUtils.copyFile(source, target);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// Copy file to the destination
+		FileUtils.copyFile(source, target);
 	}
 
 	@Override
@@ -72,7 +68,12 @@ public class EventListner extends BaseClass implements ITestListener {
 	public void onTestFailure(ITestResult result) {
 		test = reports.createTest(result.getName());
 		test.log(Status.FAIL, MarkupHelper.createLabel("Name of failed test" + result.getName(), ExtentColor.RED));
-		captureScreenshot(driver, result.getName());
+		try {
+			captureScreenshot(driver, result.getName());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		test.addScreenCaptureFromPath("F:\\Selenium\\EcomAutomationProject\\MyStore\\ScreenShot\\" + result.getName() + ".png", result.getName());
 //		test = reports.createTest(result.getStatus());
 		System.out.println("Test Failed: " + result.getName());

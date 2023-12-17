@@ -1,5 +1,6 @@
 package com.mystore.pageobjects;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -9,6 +10,7 @@ import com.mystore.base.BaseClass;
 
 public class ShoppingCartPage extends BaseClass {
 	
+	WebDriver driver = getDriver();
 	public ShoppingCartPage( ) {
 		PageFactory.initElements(driver, this);
 	}

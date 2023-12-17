@@ -2,6 +2,7 @@ package com.mystore.testcases;
 
 import java.io.IOException;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -47,6 +48,8 @@ public class LoginTest extends BaseClass {
 	private IndexPage indexPage;
 	private LoginPage loginPage;
 	Action action = new Action();
+	
+	WebDriver driver = getDriver(); 
 
 	@BeforeMethod
 	public void launchAppTest() {
@@ -61,14 +64,15 @@ public class LoginTest extends BaseClass {
 	@Test(dataProvider = "loginData")
 	public void loginTestWithValidCreds(String username, String password) throws IOException {
 		Log.startTestCase("Started loginTestWithValidCreds");
-		action.implicitWait(driver, 5);
+//		action.implicitWait(driver, 5);
+		
 		System.out.println("Username: " + username + ", Password: " + password);
 		Log.info("Validating URL");
 		Assert.assertEquals(action.getHttpResponseCode(prop.getProperty("url")), 200);
 		indexPage = new IndexPage();
 		loginPage = indexPage.NavigateToSignInPage();
 		loginPage.Login(username, password);
-		Assert.assertEquals(indexPage.VerifyLogin(), false);
+		Assert.assertEquals(indexPage.VerifyLogin(), true);
 		Log.endTestCase("Ended loginTestWithValidCreds");
 	}
 	
